@@ -10,7 +10,7 @@ LOG_FILE_NAME = "/var/log/httpd/access_log"
 TAIL_SIZE = "5000"
 
 
-#This class will handles any incoming request from
+#This class will handles  any incoming request from
 #the browser
 class myHandler(BaseHTTPRequestHandler):
 
