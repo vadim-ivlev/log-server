@@ -1,1 +1,1 @@
-#Show tail of the Apache log
+#Хвост лога Апач
