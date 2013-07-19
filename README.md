@@ -1,2 +1,1 @@
-log-server
-==========
+#Show tail of the Apache log
