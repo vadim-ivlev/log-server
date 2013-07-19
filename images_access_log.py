@@ -1,16 +1,17 @@
 #!/usr/bin/python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-# import os
+import os
 import time
-import subprocess
+#import subprocess
 from time import gmtime, strftime
 
 PORT_NUMBER = 8081
 LOG_FILE_NAME = "/var/log/httpd/access_log"
-TAIL_SIZE = "5000"
+TAIL_FILE_NAME = "images_acces_tail.txt"
+TAIL_SIZE = "30000"
 
 
-#This class will handles  any incoming request from
+#This class will handles any incoming request from
 #the browser
 class myHandler(BaseHTTPRequestHandler):
 
@@ -21,27 +22,25 @@ class myHandler(BaseHTTPRequestHandler):
 
         start_time = time.time()
 
-        # os.system('tail -c {0} {1} > hits.txt'.format(TAIL_SIZE, LOG_FILE_NAME))
+        os.system('tail -c %s %s > %s' % (TAIL_SIZE, LOG_FILE_NAME, TAIL_FILE_NAME))
         # subprocess.call(["tail", "-c", TAIL_SIZE, LOG_FILE_NAME, ">", "hits.txt"])
 
-        # f = open('hits.txt')
-        # text = f.read()
-        # f.close()
+        f = open( TAIL_FILE_NAME )
+        text = f.read()
+        f.close()
 
-        text = subprocess.check_output(["tail", "-c", TAIL_SIZE, LOG_FILE_NAME])
+        #text = subprocess.check_output(["tail", "-c", TAIL_SIZE, LOG_FILE_NAME])
 
         end_time = time.time()
 
         text2 = "\n".join(text.split("\n")[1:])
 
-        # time.sleep(2)
 
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
 
-        # self.wfile.write(current_time)
-        self.wfile.write("{} Execution_time:{} seconds \n".format(current_time, end_time - start_time))
+        self.wfile.write("%s Execution_time:%f seconds \n" % (current_time, end_time - start_time))
         self.wfile.write(text2)
         
 
@@ -53,6 +52,7 @@ try:
     #incoming request
     server = HTTPServer(('', PORT_NUMBER), myHandler)
     print 'Started httpserver on port ', PORT_NUMBER
+    print 'Log file: ', LOG_FILE_NAME
     print '^C to stop.'
 
     #Wait forever for incoming htto requests
