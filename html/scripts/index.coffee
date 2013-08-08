@@ -1,8 +1,15 @@
 
+@GLOB=new Common
+
+updater = new LogUpdater
+summary = new LogSummary
+
 
 $ ->
-  @vis0=new Visualizer0()
-  #console.log vis0.myLog
-  vis0.init()
-  #vis0.start()
+  summary.buildSummaryArea("#out2")
+  updater.init()
+  updater.onUpdate (log)-> summary.show(log)
+
+  $("#btnStart0").click ->updater.start(5000)
+  $("#btnStop0").click ->updater.stop()
 

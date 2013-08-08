@@ -1,4 +1,10 @@
-class ApacheLog
+###
+  Class Log
+  Represents a tail of the server log
+###
+class @Log
+
+
 
   getSeconds = (timeString)->
     a = timeString.split ":"
@@ -27,8 +33,8 @@ class ApacheLog
     a[1..]
 
   get_short_line = (o, j)->
-    text = "#{toStr(j, 4)}  #{o.time}   #{o.timeSec.toFixed(2)}   #{toStr(o.method, 5)} #{toStr(o.response,
-      5)} #{toStr(o.size, 10)}"
+    text = "#{GLOB.toStr(j, 4)}  #{o.time}   #{o.timeSec.toFixed(2)}   #{GLOB.toStr(o.method, 5)} #{GLOB.toStr(o.response,
+      5)} #{GLOB.toStr(o.size, 10)}"
     if o.method == "not"
       text += "#{o.request}<br/>"
       text += "#{o.line}<br/>"
@@ -75,29 +81,6 @@ class ApacheLog
     @LOG.length
   getRecordsPerSecond: ->
     @count() / @getTimeLength()
-  getSummary: ->
-    try
-      """
-      <pre style="font-size:20px;">
-                                               Current Time:
-      #{@getCurrentTime()} #{@getCurrentSec()} Server Difference: #{@getServerTimeDiff().toFixed(2)}
-                                               -----------------------
-      #{@count()}                              Requests
-      #{@getFirstTime()} #{@getFirstTimeSec()}
-      #{@getLastTime()} #{@getLastTimeSec()}
-      #{@getTimeLength().toFixed(2)}           seconds
-                                               -----------------------
-      #{@getRecordsPerSecond().toFixed(2)}     Requests Per Second
-                                               </pre>
-                                               """
-    catch error
-      """
-      <pre style="font-size:20px; color:red">
-      -----------------------
-      #{error.toString()}
-      -----------------------
-      </pre>
-      """
 
 
 
