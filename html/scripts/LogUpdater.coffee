@@ -1,11 +1,5 @@
 class @LogUpdater
   timer=null
-
-
-  constructor:()->
-    console?.log "LogUpdater created"
-
-
   callback=null
 
   onUpdate:(func)->
@@ -14,7 +8,6 @@ class @LogUpdater
 
   stop:()=>
     clearInterval timer
-#    clear()
 
   start:(updateTime=5000)=>
     @stop()
@@ -27,9 +20,8 @@ class @LogUpdater
       console?.log "updated: #{txt.substr(0,10)}"
       @myLog.addText txt
       callback?(@myLog)
-#      updateArea()
       null
-      
+
 
   init:=>
     clearInterval timer

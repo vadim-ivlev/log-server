@@ -5,16 +5,13 @@
   this.LogUpdater = (function() {
     var callback, timer, updateLog;
 
-    timer = null;
-
     function LogUpdater() {
       this.init = __bind(this.init, this);
       this.start = __bind(this.start, this);
       this.stop = __bind(this.stop, this);
-      if (typeof console !== "undefined" && console !== null) {
-        console.log("LogUpdater created");
-      }
     }
+
+    timer = null;
 
     callback = null;
 
