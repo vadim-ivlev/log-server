@@ -14,7 +14,7 @@
     timer = null;
 
     constructor = function() {
-      return typeof console !== "undefined" && console !== null ? console.log("Timer created") : void 0;
+      return typeof console !== "undefined" && console !== null ? console.log("Timer  created") : void 0;
     };
 
     callback = null;

@@ -29,6 +29,7 @@ class @LogUpdater
       callback?(@myLog)
 #      updateArea()
       null
+      
 
   init:=>
     clearInterval timer

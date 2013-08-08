@@ -2,7 +2,7 @@ class Timer
   timer=null
 
   constructor=()->
-    console?.log "Timer created"
+    console?.log "Timer  created"
 
   callback=null
 

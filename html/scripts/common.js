@@ -13,8 +13,6 @@
 
     URL = "http://172.16.57.226/tails/tail200k.txt?";
 
-    URL = "http://www.obd-memorial.ru/tails/tail200k.txt?";
-
     Common.prototype.FULL_URL = PROXY + URL + Math.random();
 
     /*
