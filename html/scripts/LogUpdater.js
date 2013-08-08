@@ -18,7 +18,7 @@
 
     callback = null;
 
-    LogUpdater.prototype.onUpdate = function(func) {
+    LogUpdater.prototype.onTimer = function(func) {
       callback = func;
       return typeof console !== "undefined" && console !== null ? console.log(func) : void 0;
     };

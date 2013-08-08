@@ -55,7 +55,7 @@ class @Log
     3600 * d.getHours() + 60 * d.getMinutes() + d.getSeconds() + 0.001 * d.getMilliseconds()
 
   getPastRecords: (backSec, spanSec)->
-    now = Math.round @getCurrentSec() #-@getServerTimeDiff()
+    now = Math.round @getCurrentSec()
     #     i=0
     ( get_short_line o, i for o,i in @LOG when now - o.timeSec > backSec and now - o.timeSec < (backSec + spanSec))
 
