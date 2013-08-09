@@ -15,10 +15,12 @@ class @Log
 
   parseLine = (line)->
     a = line.split /\s+/
+    rand = Math.random()
+    strRand=(""+rand).substr(1,4)
     o =
       line: line
-      time: a[2]
-      timeSec: getSeconds(a[2]) + Math.random()
+      time: a[2] + strRand
+      timeSec: getSeconds(a[2]) + rand
       ip: a[5]
       method: a[10]
       request: a[11]
@@ -33,7 +35,7 @@ class @Log
     a[1..]
 
   get_short_line = (o, j)->
-    text = "#{GLOB.toStr(j, 4)}  #{o.time}   #{o.timeSec.toFixed(2)}   #{GLOB.toStr(o.method, 5)} #{GLOB.toStr(o.response,
+    text = "#{GLOB.toStr(j, 4)}  #{o.time}   #{o.timeSec.toFixed(3)}   #{GLOB.toStr(o.method, 5)} #{GLOB.toStr(o.response,
       5)} #{GLOB.toStr(o.size, 10)}"
     if o.method == "not"
       text += "#{o.request}<br/>"
@@ -55,7 +57,7 @@ class @Log
     3600 * d.getHours() + 60 * d.getMinutes() + d.getSeconds() + 0.001 * d.getMilliseconds()
 
   getPastRecords: (backSec, spanSec)->
-    now = Math.round @getCurrentSec()
+    now = @getCurrentSec()
     #     i=0
     ( get_short_line o, i for o,i in @LOG when now - o.timeSec > backSec and now - o.timeSec < (backSec + spanSec))
 

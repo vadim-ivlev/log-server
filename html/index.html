@@ -10,11 +10,26 @@
     <script src="scripts/Log.js"></script>
     <script src="scripts/LogUpdater.js"></script>
     <script src="scripts/LogSummary.js"></script>
+    <script src="scripts/ShortSpan.js"></script>
+    <script src="scripts/Timer.js"></script>
     <script src="scripts/index.js"></script>
+
+
+    <style>
+        .out
+        {
+            position: relative;
+            border: 1px dotted blue;
+        }
+
+
+
+    </style>
 </head>
 <body>
 <button id="btnStart0">Start0</button>
 <button id="btnStop0">Stop0</button>
-<div id="out2"></div>
+<input id="sldFreq" type="range" min="1" max="30" step="1" value="10" style="width:400px;">
+<div id="out2" class="out"></div>
 </body>
 </html>

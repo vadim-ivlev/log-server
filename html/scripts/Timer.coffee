@@ -1,7 +1,7 @@
-class Timer
+class @Timer
   timer=null
 
-  constructor=()->
+  constructor:()->
     console?.log "Timer  created"
 
   callback=null
@@ -23,4 +23,5 @@ class Timer
 
 
   action=->
+#    console?.log "Timer action"
 

@@ -1,35 +1,29 @@
 class @LogSummary
-  area=null
-  out=null
+  desk=null
+  outerContainer=null
 
-  clear :() -> area?.html ""
+  clear :() -> desk.html ""
 
 
   write : (text) ->
-    area.html(area.html() + text)
+    desk.html(desk.html() + text)
 
 
   show:(log)->
     @clear()
     try
       @write """
+        <h4>Summary</h4>
         <pre>
-        Current Time:
-        #{log.getCurrentTime()} #{log.getCurrentSec()}
-        Server Difference: #{log.getServerTimeDiff().toFixed(2)}
-        -----------------------
-        #{log.getFirstTime()} #{log.getFirstTimeSec()} first record time
-        #{log.getLastTime()} #{log.getLastTimeSec()} last record time
-        #{log.getTimeLength().toFixed(2)} seconds
-        -----------------------
-        #{log.count()} Requests
-        #{log.getRecordsPerSecond().toFixed(2)} Requests Per Second
-        -----------------------
-        #{log.getCurrentTime()} ************************
-        #{log.getPastRecords(10,0.5).join '\n'}
-        #{log.getCurrentTime()} ************************
-        --------------------------
-        log.getShortLog()
+        Current Time        #{log.getCurrentTime()} #{log.getCurrentSec()}
+        Server Difference   #{log.getServerTimeDiff().toFixed(2)}
+
+        First record time   #{log.getFirstTime()} #{log.getFirstTimeSec().toFixed(3)}
+        Last record time    #{log.getLastTime()} #{log.getLastTimeSec().toFixed(3)}
+        Time length         #{log.getTimeLength().toFixed(2)}  sec
+
+        Requests            #{log.count()}
+        Requests Per Second #{log.getRecordsPerSecond().toFixed(2)}
         </pre>
         """
     catch error
@@ -42,7 +36,13 @@ class @LogSummary
         """
 
   buildSummaryArea:(containerSelector)->
-    out=$(containerSelector)
-    out.html("")
-    area=$("<div style='position:relative; left:0px; top:0px;  width:550px; height:600px; border:1px solid silver; color:black; overflow-y:hidden;'>mmm<div>")
-    out.append(area)
+    outerContainer=$(containerSelector)
+    desk=$("
+        <div style='position:relative;
+        left:0px; top:0px;
+        width:400px;
+        border:1px dotted silver;
+        color:black;
+        overflow-x:hidden;
+        '><div>")
+    outerContainer.append(desk)

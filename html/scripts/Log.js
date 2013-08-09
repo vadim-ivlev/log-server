@@ -29,12 +29,14 @@
     };
 
     parseLine = function(line) {
-      var a, o;
+      var a, o, rand, strRand;
       a = line.split(/\s+/);
+      rand = Math.random();
+      strRand = ("" + rand).substr(1, 4);
       return o = {
         line: line,
-        time: a[2],
-        timeSec: getSeconds(a[2]) + Math.random(),
+        time: a[2] + strRand,
+        timeSec: getSeconds(a[2]) + rand,
         ip: a[5],
         method: a[10],
         request: a[11],
@@ -53,7 +55,7 @@
 
     get_short_line = function(o, j) {
       var text;
-      text = "" + (GLOB.toStr(j, 4)) + "  " + o.time + "   " + (o.timeSec.toFixed(2)) + "   " + (GLOB.toStr(o.method, 5)) + " " + (GLOB.toStr(o.response, 5)) + " " + (GLOB.toStr(o.size, 10));
+      text = "" + (GLOB.toStr(j, 4)) + "  " + o.time + "   " + (o.timeSec.toFixed(3)) + "   " + (GLOB.toStr(o.method, 5)) + " " + (GLOB.toStr(o.response, 5)) + " " + (GLOB.toStr(o.size, 10));
       if (o.method === "not") {
         text += "" + o.request + "<br/>";
         text += "" + o.line + "<br/>";
@@ -80,7 +82,7 @@
 
     Log.prototype.getPastRecords = function(backSec, spanSec) {
       var i, now, o, _i, _len, _ref, _results;
-      now = Math.round(this.getCurrentSec());
+      now = this.getCurrentSec();
       _ref = this.LOG;
       _results = [];
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
