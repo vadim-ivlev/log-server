@@ -14,14 +14,21 @@
     i = 0;
 
     lin = function(x) {
-      return Math.sqrt(x) + Math.random() * x * 0.1;
+      return x;
     };
 
     particle = function(logRecord) {
-      var h, w;
+      var h, rand, w, xx, yy;
       w = outerContainer.width();
       h = outerContainer.height();
-      return svg.append("svg:circle").attr("cx", w * Math.random()).attr("cy", h * Math.random()).attr("r", 1).style("fill", "transparent").style("stroke", "white").style("stroke-width", 1).transition().duration(1000).ease(Math.sqrt).attr("r", 10 + 50 * Math.random()).style("stroke-opacity", 1e-6).remove();
+      xx = w * Math.random();
+      rand = Math.random();
+      yy = h * rand * 0.1 + h / 2;
+      return svg.append("svg:circle").attr("cx", xx).attr("cy", yy - 200).attr("r", 2).style("fill", "white").style("fill-opacity", 0.1).transition().duration(500).ease("bounce").attr("cy", yy).style("fill-opacity", 0.1 + rand).remove().each("end", function() {
+        var r;
+        r = 10 + 80 * rand;
+        return svg.append("svg:ellipse").attr("cx", xx).attr("cy", yy).attr("rx", 1).attr("ry", 1).style("fill", "transparent").style("fill-opacity", 1).style("stroke", "white").style("stroke-opacity", 0.1 + rand).style("stroke-width", 1).transition().duration(1000).ease("linear").attr("rx", r).attr("ry", r * 0.2).style("stroke-width", 1 + 2 * rand).style("stroke-opacity", 1e-6).remove();
+      });
     };
 
     Drops.prototype.clear = function() {
