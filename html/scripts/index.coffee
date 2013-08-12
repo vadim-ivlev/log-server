@@ -1,39 +1,54 @@
+@GLOB = new Common
+LOG = null
+updatePeriod = 5000
+timerPeriod = 100
+startTime = 10
 
-@GLOB=new Common
-LOG=null
-updatePeriod=5000
-timerPeriod=100
-startTime=10
+updater = null
+summary = null
+shortSpan = null
+drops = null
 
-updater = new LogUpdater
-summary = new LogSummary
-shortSpan = new ShortSpan
 timer = new Timer
-timer.setCallback ->
-  shortSpan.show LOG, startTime, 0.001 * timerPeriod
+timer.setCallback  ->
+    shortSpan.show LOG, startTime, 0.001 * timerPeriod
+    drops.show LOG, startTime, 0.001 * timerPeriod
+    null
 
 
 $ ->
-  summary.buildSummaryArea "#out2"
-  shortSpan.buildDrawArea "#out2"
-  updater.init()
-  updater.onUpdate (log)->
-    LOG=log
-    summary.show(LOG)
+    updater = new LogUpdater()
+    summary = new LogSummary "#summaryContainer"
+    shortSpan = new ShortSpan "#shortSpanContainer"
+    drops = new Drops "#dropContainer"
 
 
-  $("#btnStart0").click ->
-                    updater.start updatePeriod
-                    timer.start timerPeriod
-
-  $("#btnStop0").click ->
-                    updater.stop()
-                    timer.stop()
+    updater.init()
+    updater.onUpdate (log)->
+        LOG = log
+        summary.show(LOG)
 
 
-  $("#sldFreq").change ->
-                  fr=$("#sldFreq").val()
-                  timerPeriod =1000.0/fr
-#                  console?.log "Frequency: #{fr} Period:#{timerPeriod}"
-                  timer.stop()
-                  timer.start timerPeriod
+    $("#btnStart0").click ->
+        updater.start updatePeriod
+
+    $("#btnStop0").click ->
+        updater.stop()
+
+    $("#btnStart1").click ->
+        timer.start timerPeriod
+
+    $("#btnStop1").click ->
+        timer.stop()
+
+    $("#sldFreq").change ->
+        fr = $("#sldFreq").val()
+        timerPeriod = 1000.0 / fr
+        #console?.log "Frequency: #{fr} Period:#{timerPeriod}"
+        timer.stop()
+        timer.start timerPeriod
+
+    $("#selectUrl").change ->
+        GLOB.setUrl( $("#selectUrl").val() )
+        updater.stop()
+        updater.start updatePeriod

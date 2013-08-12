@@ -5,12 +5,6 @@
   this.LogUpdater = (function() {
     var callback, timer, updateLog;
 
-    function LogUpdater() {
-      this.init = __bind(this.init, this);
-      this.start = __bind(this.start, this);
-      this.stop = __bind(this.stop, this);
-    }
-
     timer = null;
 
     callback = null;
@@ -35,12 +29,14 @@
 
     updateLog = function() {
       var _this = this;
-      this.myLog = new Log();
-      return $.get(GLOB.FULL_URL, function(txt) {
+      return $.get(GLOB.getFullUrl(), function(txt) {
         if (typeof console !== "undefined" && console !== null) {
           console.log("updated: " + (txt.substr(0, 10)));
         }
-        _this.myLog.addText(txt);
+        if (txt.length > 0) {
+          _this.myLog = new Log();
+          _this.myLog.addText(txt);
+        }
         if (typeof callback === "function") {
           callback(_this.myLog);
         }
@@ -52,6 +48,12 @@
       clearInterval(timer);
       return this.myLog = new Log();
     };
+
+    function LogUpdater() {
+      this.start = __bind(this.start, this);
+      this.stop = __bind(this.stop, this);
+      this.myLog = new Log();
+    }
 
     return LogUpdater;
 

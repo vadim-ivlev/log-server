@@ -1,28 +1,33 @@
 class @LogUpdater
-  timer=null
-  callback=null
+    timer = null
+    callback = null
 
-  onUpdate:(func)->
-    callback=func
-    console?.log func
+    onUpdate: (func)->
+        callback = func
+        console?.log func
 
-  stop:()=>
-    clearInterval timer
+    stop: ()=>
+        clearInterval timer
 
-  start:(updateTime=5000)=>
-    @stop()
-    updateLog()
-    timer=setInterval updateLog, updateTime
+    start: (updateTime = 5000)=>
+        @stop()
+        updateLog()
+        timer = setInterval updateLog, updateTime
 
-  updateLog=->
-    @myLog=new Log()
-    $.get GLOB.FULL_URL , (txt)=>
-      console?.log "updated: #{txt.substr(0,10)}"
-      @myLog.addText txt
-      callback?(@myLog)
-      null
+    updateLog = ->
+        $.get GLOB.getFullUrl(), (txt)=>
+            console?.log "updated: #{txt.substr(0, 10)}"
+
+            if txt.length > 0
+                @myLog = new Log()
+                @myLog.addText txt
+
+            callback?(@myLog)
+            null
 
 
-  init:=>
-    clearInterval timer
-    @myLog=new Log()
+    init: ->
+        clearInterval timer
+        @myLog = new Log()
+
+    constructor:-> @myLog = new Log()

@@ -1,48 +1,42 @@
 class @LogSummary
-  desk=null
-  outerContainer=null
+    desk = null
+    outerContainer = null
 
-  clear :() -> desk.html ""
-
-
-  write : (text) ->
-    desk.html(desk.html() + text)
+    clear: () ->
+        desk.html ""
 
 
-  show:(log)->
-    @clear()
-    try
-      @write """
-        <h4>Summary</h4>
-        <pre>
-        Current Time        #{log.getCurrentTime()} #{log.getCurrentSec()}
-        Server Difference   #{log.getServerTimeDiff().toFixed(2)}
+    write: (text) ->
+        desk.html(desk.html() + text)
 
-        First record time   #{log.getFirstTime()} #{log.getFirstTimeSec().toFixed(3)}
-        Last record time    #{log.getLastTime()} #{log.getLastTimeSec().toFixed(3)}
-        Time length         #{log.getTimeLength().toFixed(2)}  sec
 
-        Requests            #{log.count()}
-        Requests Per Second #{log.getRecordsPerSecond().toFixed(2)}
-        </pre>
-        """
-    catch error
-      @write """
-        <pre style='font-size:20px; color:red'>
-        -----------------------
-        #{error.toString()}
-        -----------------------
-        </pre>
-        """
+    show: (log)->
+        @clear()
+        try
+            @write """
+                   <h4>Summary</h4>
+                   <pre>
+                   Current Time        #{log.getCurrentTime()} #{log.getCurrentSec()}
+                   Server Difference   #{log.getServerTimeDiff().toFixed(2)}
 
-  buildSummaryArea:(containerSelector)->
-    outerContainer=$(containerSelector)
-    desk=$("
-        <div style='position:relative;
-        left:0px; top:0px;
-        width:400px;
-        border:1px dotted silver;
-        color:black;
-        overflow-x:hidden;
-        '><div>")
-    outerContainer.append(desk)
+                   First record time   #{log.getFirstTime()} #{log.getFirstTimeSec().toFixed(3)}
+                   Last record time    #{log.getLastTime()} #{log.getLastTimeSec().toFixed(3)}
+                   Time length         #{log.getTimeLength().toFixed(2)}  sec
+
+                   Requests            #{log.count()}
+                   Requests Per Second #{log.getRecordsPerSecond().toFixed(2)}
+                   </pre>
+                   """
+        catch error
+            @write "
+                    <pre style='font-size:20px; color:red'>
+                    -----------------------
+                    #{error.toString()}
+                    -----------------------
+                    </pre>
+                    "
+
+    constructor: (containerSelector)->
+        desk = $(containerSelector)
+
+

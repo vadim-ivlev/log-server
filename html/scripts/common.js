@@ -11,9 +11,17 @@
 
     PROXY = "";
 
-    URL = "http://172.16.57.226/tails/tail200k.txt?";
+    URL = "http://www.obd-memorial.ru/tails/tail200k.txt?";
 
     Common.prototype.FULL_URL = PROXY + URL + Math.random();
+
+    Common.prototype.getFullUrl = function() {
+      return PROXY + URL + Math.random();
+    };
+
+    Common.prototype.setUrl = function(url) {
+      return URL = url;
+    };
 
     /*
     Common functions
@@ -37,6 +45,18 @@
       } else {
         return sh.substr(0, L - len) + ss;
       }
+    };
+
+    Common.prototype.getCurrentTime = function() {
+      var d;
+      d = new Date();
+      return "" + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds()) + "." + (d.getMilliseconds());
+    };
+
+    Common.prototype.getCurrentSec = function() {
+      var d;
+      d = new Date();
+      return 3600 * d.getHours() + 60 * d.getMinutes() + d.getSeconds() + 0.001 * d.getMilliseconds();
     };
 
     return Common;
