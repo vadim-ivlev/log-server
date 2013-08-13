@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>tests</title>
+    <link rel="stylesheet" href="qunit/qunit.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="qunit/qunit.js"></script>
+    <script src="qunit/coffee-script.js"></script>
+
+    <script>
+        test("hello test", function () {
+            ok(1 == "1", "Passed!");
+        });
+
+        asyncTest( "asynchronous test: Geo API", 1, function() {
+
+          $.get("http://freegeoip.net/json/178.208.131.106" , function(data) {
+            equal("mmm", data ) ;
+            start();
+          });
+
+        });
+
+    </script>
+
+    <script type="text/coffeescript">
+
+        test 'true should be truthy', ->
+            ok(true, 'true is not truthy!')
+
+        test 'should be able to append to an array', ->
+            ok [1, 2] == [1].push(2)
+
+        asyncTest "Test some location", 1,  ->
+            $.get "http://freegeoip.net/json/212.58.246.95", (data)->
+                equal "51.2833", eval data.latitude
+                start()
+
+    </script>
+
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+</body>
+</html>

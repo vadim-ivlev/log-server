@@ -6,9 +6,9 @@ import time
 from time import gmtime, strftime
 
 PORT_NUMBER = 8080
-LOG_FILE_NAME = "/var/log/rr_httpd/httpd_access.log"
-TAIL_FILE_NAME = "httpd_acces_tail.txt"
-TAIL_SIZE = "30000"
+LOG_FILE_NAME = "/var/log/httpd/access_log"
+TAIL_FILE_NAME = "/home/log-server/python_server/httpd_access_tail.txt"
+TAIL_SIZE = "300000"
 
 
 #This class will handles any incoming request from
