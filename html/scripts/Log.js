@@ -7,15 +7,9 @@
 
 (function() {
   this.Log = (function() {
-    var getSeconds, get_long_line, get_short_line, parseLine, splitTailText, tailToArray;
+    var get_long_line, get_short_line, splitTailText, tailToArray;
 
     function Log() {}
-
-    getSeconds = function(timeString) {
-      var a;
-      a = timeString.split(":");
-      return 3600 * a[0] + 60 * a[1] + 1 * a[2];
-    };
 
     tailToArray = function(tailText) {
       var line, _i, _len, _ref, _results;
@@ -23,27 +17,9 @@
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         line = _ref[_i];
-        _results.push(parseLine(line));
+        _results.push(LogParser.parseLine(line));
       }
       return _results;
-    };
-
-    parseLine = function(line) {
-      var a, o, rand, strRand;
-      a = line.split(/\s+/);
-      rand = Math.random();
-      strRand = ("" + rand).substr(1, 4);
-      return o = {
-        line: line,
-        time: a[2] + strRand,
-        timeSec: getSeconds(a[2]) + rand,
-        ip: a[5],
-        method: a[10],
-        request: a[11],
-        response: a[13],
-        size: a[14],
-        userAgent: a[16]
-      };
     };
 
     splitTailText = function(text) {
