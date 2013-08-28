@@ -18,17 +18,24 @@
     };
 
     particle = function(logRecord) {
-      var h, rand, w, xx, yy;
+      var fillColor, h, rand, w, xx, yy;
       w = outerContainer.width();
       h = outerContainer.height();
       xx = w * Math.random();
       rand = Math.random();
       yy = h * rand * 0.1 + h / 2;
-      return svg.append("svg:circle").attr("cx", xx - 100).attr("cy", yy - 200).attr("r", 2).style("fill", "white").style("fill-opacity", 0.1).transition().duration(500).ease("linear").attr("cy", yy).attr("cx", xx).style("fill-opacity", 0.1 + rand).remove().each("end", function() {
+      fillColor = logRecord.method === '"POST' ? "#0FF" : "white";
+      if (logRecord.image) {
+        fillColor = "red";
+      }
+      return svg.append("svg:circle").attr("cx", xx - 100).attr("cy", yy - 200).attr("r", 2).style("fill", fillColor).style("fill-opacity", 0.1).transition().duration(500).ease("linear").attr("cy", yy).attr("cx", xx).style("fill-opacity", 0.1 + rand).remove().each("end", function() {
         var r;
         r = 10 + 80 * rand;
-        svg.append("svg:ellipse").attr("cx", xx).attr("cy", yy).attr("rx", 1).attr("ry", 1 * 0.2).style("fill", "white").style("fill-opacity", 0.1 + rand).style("stroke", "white").style("stroke-opacity", 0).style("stroke-width", 1).transition().duration(3000).ease(Math.sqrt).ease("linear").attr("rx", r).attr("ry", r * 0.2).style("stroke-width", 1 + 2 * rand).style("stroke-opacity", 1e-6).style("fill-opacity", 1e-6).remove();
-        return svg.append("svg:circle").attr("cx", xx).attr("cy", yy).attr("r", 4).style("fill", "white").style("fill-opacity", 0.1 + rand).transition().duration(1000).ease(Math.sqrt).attr("cy", yy - 200).attr("cx", xx + 100).style("fill-opacity", 0.1).attr("r", 4).remove();
+        if (typeof console !== "undefined" && console !== null) {
+          console.log("method=" + logRecord.method + " " + logRecord.line);
+        }
+        svg.append("svg:ellipse").attr("cx", xx).attr("cy", yy).attr("rx", 1).attr("ry", 1 * 0.2).style("fill", logRecord.success ? fillColor : "black").style("fill-opacity", 0.1 + rand).style("stroke", "white").style("stroke-opacity", 0).style("stroke-width", 1).transition().duration(3000).ease(Math.sqrt).ease("linear").attr("rx", r).attr("ry", r * 0.2).style("stroke-width", 1 + 2 * rand).style("stroke-opacity", 1e-6).style("fill-opacity", 1e-6).remove();
+        return svg.append("svg:circle").attr("cx", xx).attr("cy", yy).attr("r", 4).style("fill", fillColor).style("fill-opacity", 0.1 + rand).transition().duration(1000).ease(Math.sqrt).attr("cy", logRecord.success ? yy - 200 : yy + 200).attr("cx", xx + 100).style("fill-opacity", 0.1).attr("r", 4).remove();
       });
     };
 
@@ -51,7 +58,7 @@
       if (!log) {
         return;
       }
-      records = log.getPastRecords(startTime, period);
+      records = log.getPastRecords2(startTime, period);
       _results = [];
       for (_i = 0, _len = records.length; _i < _len; _i++) {
         rec = records[_i];

@@ -70,6 +70,20 @@
       return _results;
     };
 
+    Log.prototype.getPastRecords2 = function(backSec, spanSec) {
+      var now, o, _i, _len, _ref, _results;
+      now = this.getCurrentSec();
+      _ref = this.LOG;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        o = _ref[_i];
+        if (now - o.timeSec > backSec && now - o.timeSec < (backSec + spanSec)) {
+          _results.push(o);
+        }
+      }
+      return _results;
+    };
+
     Log.prototype.addText = function(text) {
       return this.LOG = tailToArray(text);
     };

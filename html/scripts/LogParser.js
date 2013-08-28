@@ -19,10 +19,12 @@
     };
 
     LogParser.parseLine = function(line) {
-      var a, o, rand, strRand;
+      var a, image, o, rand, responseCode, strRand;
       a = line.split(/\s+/);
       rand = Math.random();
       strRand = ("" + rand).substr(1, 4);
+      responseCode = a[13];
+      image = line.indexOf("fullimage") !== -1 || line.indexOf("filterimage") !== -1;
       return o = {
         line: line,
         time: a[2] + strRand,
@@ -30,9 +32,11 @@
         ip: a[5],
         method: a[10],
         request: a[11],
-        response: a[13],
+        response: responseCode,
         size: a[14],
-        userAgent: a[16]
+        userAgent: a[16],
+        success: responseCode === "200" || responseCode === "304",
+        image: image
       };
     };
 

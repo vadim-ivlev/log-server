@@ -40,8 +40,12 @@ class @Log
 
   getPastRecords: (backSec, spanSec)->
     now = @getCurrentSec()
-    #     i=0
     ( get_short_line o, i for o,i in @LOG when now - o.timeSec > backSec and now - o.timeSec < (backSec + spanSec))
+
+  getPastRecords2: (backSec, spanSec)->
+    now = @getCurrentSec()
+    ( o for o in @LOG when now - o.timeSec > backSec and now - o.timeSec < (backSec + spanSec))
+
 
   addText: (text)->
     @LOG = tailToArray text
