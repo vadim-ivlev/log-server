@@ -14,19 +14,22 @@ class @LogSummary
         @clear()
         try
             @write """
-                   <h4>Summary</h4>
                    <pre>
-                   Current Time        #{log.getCurrentTime()} #{log.getCurrentSec()}
-                   Server Difference   #{log.getServerTimeDiff().toFixed(2)}
-
-                   First record time   #{log.getFirstTime()} #{log.getFirstTimeSec().toFixed(3)}
-                   Last record time    #{log.getLastTime()} #{log.getLastTimeSec().toFixed(3)}
-                   Time length         #{log.getTimeLength().toFixed(2)}  sec
-
-                   Requests            #{log.count()}
+                   S U M M A R Y
+                   --------------------------
+                   #{log.count()} Requests / #{log.getTimeLength().toFixed(2)}  sec
                    Requests Per Second #{log.getRecordsPerSecond().toFixed(2)}
                    </pre>
                    """
+
+#                   <h4>Summary</h4>
+#                   Current Time        #{log.getCurrentTime()} #{log.getCurrentSec()}
+#                   Server Difference   #{log.getServerTimeDiff().toFixed(2)}
+#
+#                   First record time   #{log.getFirstTime()} #{log.getFirstTimeSec().toFixed(3)}
+#                   Last record time    #{log.getLastTime()} #{log.getLastTimeSec().toFixed(3)}
+
+
         catch error
             @write "
                     <pre style='font-size:20px; color:red'>
