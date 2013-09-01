@@ -15,8 +15,9 @@ class @ShortSpan
     @clear()
     toTheEnd=(log.getLastTimeSec()- (GLOB.getCurrentSec()-startTime)  ).toFixed(2)
     @write  """
-        <h4>Short time span</h4>
         <pre>
+        S H O R T   T I M E   S P A N
+        --------------------------
         Current Time: #{log.getCurrentTime()} #{log.getCurrentSec()}
         Start time: #{startTime} Period: #{period.toFixed 3} Frequency: #{Math.round 1/period}
         Time to the the end of log: #{toTheEnd} seconds
