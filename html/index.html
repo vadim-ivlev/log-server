@@ -24,6 +24,7 @@
         body {
             padding: 0;
             margin: 0;
+            background-color: #444;
         }
 
         .info {
@@ -49,22 +50,23 @@
 
     <div id="dropContainer"
          style="position:absolute;
-            left:0px;
-            top:0px;
-            right:0px;
-            bottom:0px;
+            left:435px;
+            top:5px;
+            right:5px;
+            height:420px;
             background-color:black;
-            border:0px dotted #F00;
-            border:0px solid green;
+            border:1px dotted rgba(100,100,100,10);
+            padding: 0;
+            : 0;
             ">
         <svg id="dropSvg"
-             style="width: 100%; height:100%; border:0px solid red; background-color:#111;">
+             style="width:100%; height:100%; border:0px dotted blue; background-color:#444;">
         </svg>
     </div>
 
-    <div id="summaryContainer" class="info" style="left:0; top:60px; width:400px; "></div>
+    <div id="summaryContainer" class="info" style="left:5px; top:60px; width:400px; "></div>
 
-    <div id="shortSpanContainer" class="info" style="top:0; right:0; width:550px;">
+    <div id="shortSpanContainer" class="info" style="top:180px; left:5px; width:400px;">
         <button id="btnStart1">Start</button>
         <button id="btnStop1">Stop</button>
         <input id="sldFreq" type="range" min="1" max="30" step="1" value="10" style="width:300px;">
@@ -72,10 +74,10 @@
     </div>
 
 
-    <div id="controlPanel" class="info" style="left:0; top:0;">
+    <div id="controlPanel" class="info" style="left:5px; top:5px; width:400px;">
         <button id="btnStart0">Start</button>
         <button id="btnStop0">Stop</button>
-        <select id="selectUrl">
+        <select id="selectUrl" style="width:270px;">
             <option>http://www.obd-memorial.ru/tails/tail200k.txt?</option>
             <option>http://www1.obd-memorial.ru/tails/tail200k.txt?</option>
             <option>http://www2.obd-memorial.ru/tails/tail200k.txt?</option>
