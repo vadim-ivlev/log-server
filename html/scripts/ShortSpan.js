@@ -28,7 +28,7 @@
       }
       this.clear();
       toTheEnd = (log.getLastTimeSec() - (GLOB.getCurrentSec() - startTime)).toFixed(2);
-      return this.write("<pre>\nS H O R T   T I M E   S P A N\n--------------------------\nCurrent Time: " + (log.getCurrentTime()) + " " + (log.getCurrentSec()) + "\nStart time: " + startTime + " Period: " + (period.toFixed(3)) + " Frequency: " + (Math.round(1 / period)) + "\nTime to the the end of log: " + toTheEnd + " seconds\n-----------------------\n\n</pre>");
+      return this.write("<pre>\nS H O R T   T I M E   S P A N\n--------------------------\nCurrent Time: " + (log.getCurrentTime()) + " " + (log.getCurrentSec()) + "\nStart time: " + startTime + " Period: " + (period.toFixed(3)) + " Frequency: " + (Math.round(1 / period)) + "\nTime to the the end of log: " + toTheEnd + " seconds\n-----------------------\n" + (log.getPastRecords(startTime, period).join('\n')) + "\n</pre>");
     };
 
     function ShortSpan(containerSelector) {
